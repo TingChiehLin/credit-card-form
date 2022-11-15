@@ -31,9 +31,6 @@ const App = () => {
     });
   };
 
-  console.log(values);
-  type keys = keyof CCForm; // cardholderName | cardNumber | MM | YY | CVC
-
   return (
     <>
       <div className="absolute top-0 w-1/4 h-screen bg-gradient-to-b from-cyan-500 to-violet-500 -z-0"></div>
