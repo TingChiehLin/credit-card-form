@@ -1,12 +1,39 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, ChangeEvent, useState } from "react";
 import { InputField } from "./components/InputFueld";
 
+import { inputData } from "./data";
 import ImageCard from "./assets/BG_Card.png";
 
 const App = () => {
+  interface CCForm {
+    cardholderName: string;
+    cardNumber: string;
+    MM: string;
+    YY: string;
+    CVC: string;
+  }
+
+  const [values, setValues] = useState<CCForm>({
+    cardholderName: "",
+    cardNumber: "",
+    MM: "",
+    YY: "",
+    CVC: "",
+  });
   const submitFormHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
+
+  const changeEventHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  console.log(values);
+  type keys = keyof CCForm; // cardholderName | cardNumber | MM | YY | CVC
+
   return (
     <>
       <div className="absolute top-0 w-1/4 h-screen bg-gradient-to-b from-cyan-500 to-violet-500 -z-0"></div>
@@ -16,50 +43,18 @@ const App = () => {
           onSubmit={submitFormHandler}
           className="w-[381px] h-[352px] ml-[8rem]"
         >
-          <InputField
-            labelTitle="Cardholder Name"
-            InputType="text"
-            placeholderText="e.g. Jane Appleseed"
-            InputValue=""
-            Inputname="Cardholder Name"
-            className="mb-6 w-full h-11 outline-none font-bold cursor-pointer outline-gray-200 hover:outline-purple-500 outline-2 rounded-md pl-4"
-          />
-          <InputField
-            labelTitle="Card Number"
-            InputType="number"
-            placeholderText="e.g. 1234 5678 9123 0000"
-            InputValue=""
-            Inputname="Card Number"
-            className="mb-6 w-full h-11 outline-none font-bold cursor-pointer outline-gray-200 hover:outline-purple-500 outline-2 rounded-md pl-4"
-          />
-          <div className="flex flex-col">
-            <h3 className="mb-2">Exp. Date (MM/YY)</h3>
-            <div className="flex items-center gap-2">
-              <InputField
-                labelTitle=""
-                InputType="number"
-                placeholderText="MM"
-                InputValue=""
-                Inputname="Card Number"
-                className="mb-6 w-16 h-11 outline-none font-bold cursor-pointer outline-gray-200 hover:outline-purple-500 outline-2 rounded-md pl-4"
-              />
-              <InputField
-                InputType="number"
-                placeholderText="YY"
-                InputValue=""
-                Inputname="Card Number"
-                className="mb-6 w-16 h-11 outline-none font-bold cursor-pointer outline-gray-200 hover:outline-purple-500 outline-2 rounded-md pl-4 ml-2"
-              />
-            </div>
-          </div>
-          <InputField
-            labelTitle="CVC"
-            InputType="number"
-            placeholderText="e.g. 123"
-            InputValue=""
-            Inputname="Card Number"
-            className="mb-10 w-full h-11 outline-none font-bold cursor-pointer outline-gray-200 hover:outline-purple-500 outline-2 pl-4"
-          />
+          {inputData.map((e, index) => (
+            <InputField
+              key={e.id}
+              label={e.label}
+              type={e.type}
+              placeholder={e.placeholder}
+              value={values[e.name as keyof CCForm]}
+              name={e.name}
+              className={e.className}
+              onChange={changeEventHandler}
+            />
+          ))}
           <button
             type="submit"
             className="w-full h-[53px] bg-DeepViolet text-white font-bold rounded-md"

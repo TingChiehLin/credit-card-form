@@ -1,34 +1,26 @@
-import { FC } from "react";
+import { FC, ChangeEvent } from "react";
 
 export interface InputTypeProp {
-  labelTitle?: string;
-  InputType: string;
-  placeholderText: string;
-  InputValue: string;
-  Inputname: string;
+  label?: string;
+  type: string;
+  placeholder: string;
+  value: string;
+  name: string;
   className: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const InputField: FC<InputTypeProp> = ({
-  labelTitle,
-  InputType,
-  placeholderText,
-  InputValue,
-  Inputname,
-  className,
+  label,
+  onChange,
+  ...inputProps
 }) => {
   return (
     <div>
-      <label htmlFor={Inputname} className="block mb-3">
-        {labelTitle}
+      <label htmlFor={label} className="block mb-3 w-full">
+        {label}
       </label>
-      <input
-        type={InputType}
-        name={Inputname}
-        placeholder={placeholderText}
-        value={InputValue}
-        className={className}
-      />
+      <input {...inputProps} onChange={onChange} />
     </div>
   );
 };
