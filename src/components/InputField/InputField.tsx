@@ -10,17 +10,13 @@ export interface InputTypeProp {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const InputField: FC<InputTypeProp> = ({
-  label,
-  onChange,
-  ...inputProps
-}) => {
+export const InputField: FC<InputTypeProp> = ({ label, ...inputProps }) => {
   return (
     <div>
       <label htmlFor={label} className="block mb-3 w-full">
         {label}
       </label>
-      <input {...inputProps} onChange={onChange} />
+      <input {...inputProps} autoComplete="off" />
     </div>
   );
 };
