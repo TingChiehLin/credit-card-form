@@ -21,6 +21,10 @@ const App = () => {
     YY: "",
     CVC: "",
   });
+
+  const [isError, setisError] = useState<boolean>(true);
+  const [errorMessage, seterrorMessage] = useState<string>("");
+
   const submitFormHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
@@ -49,43 +53,28 @@ const App = () => {
             placeholder="e.g. Jane Appleseed"
             value={values["cardholderName"]}
             name={"cardholderName"}
-            className={
-              'mb-8 w-full h-11 outline-none font-bold cursor-pointer outline-gray-200 hover:outline-purple-500 outline-2 rounded-md pl-4",'
-            }
             onChange={changeEventHandler}
+            isError={isError}
+            errorText={"Card Holder Name can not be blank"}
           />
-          {/* Card Holder Name can not be blank */}
-          {/* Wrong format, numbers only */}
           <InputField
             label={"Card Number"}
-            type={"number"}
+            type={"text"}
             placeholder="e.g. 1234 5678 9123 0000"
             value={values["cardNumber"]}
             name={"cardNumber"}
-            className={
-              "mb-8 w-full h-12 outline-none font-bold cursor-pointer outline-gray-200 hover:outline-purple-500 outline-2 rounded-md pl-4"
-            }
             onChange={changeEventHandler}
+            isError={isError}
+            errorText={"Wrong format, numbers only"}
           />
-          {/* Can’t be blank */}
           <div className="flex items-start gap-6">
             <DateInputField
               label={"Exp. Date (MM/YY)"}
               MM={values["MM"]}
               YY={values["YY"]}
               onChange={changeEventHandler}
-              className="
-                        w-24
-                        h-11
-                        outline-none
-                        font-bold 
-                        cursor-pointer
-                        outline-gray-200
-                        hover:outline-purple-500 
-                        outline-2 
-                        pl-4
-                        rounded-md
-              "
+              isError={isError}
+              errorText={"Can’t be blank"}
             />
             <InputField
               label={"CVC"}
@@ -93,10 +82,9 @@ const App = () => {
               placeholder="e.g. 123"
               value={values["CVC"]}
               name={"CVC"}
-              className={
-                "mb-10 w-full h-11 outline-none font-bold cursor-pointer outline-gray-200 hover:outline-purple-500 outline-2 pl-4 ml-2 rounded-md"
-              }
               onChange={changeEventHandler}
+              isError={isError}
+              errorText={"Can’t be blank"}
             />
           </div>
           <Button
