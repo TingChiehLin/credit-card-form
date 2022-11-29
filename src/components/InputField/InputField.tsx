@@ -8,17 +8,20 @@ export interface InputTypeProp {
   placeholder: string;
   value: string;
   name: string;
-  isError: boolean;
+  isInValid: boolean;
   errorText: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const InputField: FC<InputTypeProp> = ({
   label,
-  isError,
+  isInValid,
   errorText,
   ...inputProps
 }) => {
+  const customInputClass =
+    "w-full h-11 outline-none font-bold cursor-pointer outline-gray-200 hover:outline-purple-500 outline-2 rounded-md pl-4";
+  const isErrorClass = isInValid && "outline-Error";
   return (
     <div>
       <label htmlFor={label} className="block mb-3 w-full">
@@ -28,10 +31,9 @@ export const InputField: FC<InputTypeProp> = ({
         <input
           {...inputProps}
           autoComplete="off"
-          className={`w-full h-11 outline-none font-bold cursor-pointer outline-gray-200 hover:outline-purple-500 outline-2 rounded-md pl-4 
-        ${isError && ""}`}
+          className={customInputClass + " " + isErrorClass}
         />
-        {isError && <ErrorMessage text={errorText} />}
+        {isInValid && <ErrorMessage text={errorText} />}
       </div>
     </div>
   );

@@ -6,7 +6,8 @@ interface DateInputFieldProp {
   label: string;
   MM: string;
   YY: string;
-  isError: boolean;
+  isInValidMM: boolean;
+  isInValidYY: boolean;
   errorText: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
@@ -15,12 +16,16 @@ const DateInputField: FC<DateInputFieldProp> = ({
   label,
   MM,
   YY,
-  isError,
+  isInValidMM,
+  isInValidYY,
   errorText,
   ...DateInputField
 }) => {
   const customInputClass =
     "w-24 h-11 outline-none font-bold cursor-pointer outline-gray-200 hover:outline-purple-500 outline-2 pl-4 rounded-md";
+  const isMMErrorClass = isInValidMM && "outline-Error";
+  const isYYErrorClass = isInValidYY && "outline-Error";
+
   return (
     <div className="flex flex-col w-full">
       <label htmlFor={label} className="block mb-3 w-full">
@@ -29,7 +34,7 @@ const DateInputField: FC<DateInputFieldProp> = ({
       <div className="flex gap-4">
         <div>
           <input
-            className={customInputClass}
+            className={customInputClass + " " + isMMErrorClass}
             type="number"
             value={MM}
             name="MM"
@@ -37,12 +42,12 @@ const DateInputField: FC<DateInputFieldProp> = ({
             autoComplete="off"
             {...DateInputField}
           />
-          <div className="w-full">
-            {isError && <ErrorMessage text={errorText} />}
+          <div>
+            {(isInValidMM || isInValidYY) && <ErrorMessage text={errorText} />}
           </div>
         </div>
         <input
-          className={customInputClass}
+          className={customInputClass + " " + isYYErrorClass}
           type="number"
           value={YY}
           name="YY"
