@@ -1,4 +1,4 @@
-import { FC, ChangeEvent } from "react";
+import { FC, ChangeEvent, FocusEvent } from "react";
 
 import ErrorMessage from "../ErrorMessage";
 
@@ -10,6 +10,7 @@ interface DateInputFieldProp {
   isInValidYY: boolean;
   errorText: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onBlur: (e: FocusEvent<HTMLInputElement>) => void;
 }
 
 const DateInputField: FC<DateInputFieldProp> = ({

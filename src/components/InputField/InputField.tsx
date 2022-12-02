@@ -1,4 +1,4 @@
-import { FC, ChangeEvent } from "react";
+import { FC, ChangeEvent, FocusEvent } from "react";
 
 import ErrorMessage from "../ErrorMessage";
 
@@ -11,6 +11,7 @@ export interface InputTypeProp {
   isInValid: boolean;
   errorText: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onBlur: (e: FocusEvent<HTMLInputElement>) => void;
 }
 
 export const InputField: FC<InputTypeProp> = ({
