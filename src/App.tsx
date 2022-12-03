@@ -121,16 +121,21 @@ const App = () => {
   };
 
   const onChangeEventHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setValues({
-      ...values,
+    setValues((currentValues) => ({
+      ...currentValues,
       [e.target.name]: {
         ...(values[e.target.name as keyof CCForm] as FieldConfig),
         value: e.target.value,
+        error: (values[e.target.name as keyof CCForm] as FieldConfig).validator(
+          currentValues
+        ),
       },
-    });
+    }));
   };
 
   //Questions
+  //1. currentValues?
+
   const onBlurHandler = (e: FocusEvent<HTMLInputElement>) => {
     setValues((currentValues) => ({
       ...currentValues,
