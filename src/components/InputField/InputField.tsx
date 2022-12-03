@@ -22,7 +22,7 @@ export const InputField: FC<InputTypeProp> = ({
 }) => {
   const customInputClass =
     "w-full h-11 outline-none font-bold cursor-pointer outline-gray-200 hover:outline-purple-500 outline-2 rounded-md pl-4";
-  const isErrorClass = isInValid && "outline-Error";
+  const isErrorClass = isInValid && "outline-Error hover:outline-Error";
   return (
     <div>
       <label htmlFor={label} className="block mb-3 w-full">

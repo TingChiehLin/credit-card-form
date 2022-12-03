@@ -24,8 +24,8 @@ const DateInputField: FC<DateInputFieldProp> = ({
 }) => {
   const customInputClass =
     "w-24 h-11 outline-none font-bold cursor-pointer outline-gray-200 hover:outline-purple-500 outline-2 pl-4 rounded-md";
-  const isMMErrorClass = isInValidMM && "outline-Error";
-  const isYYErrorClass = isInValidYY && "outline-Error";
+  const isMMErrorClass = isInValidMM && "outline-Error hover:outline-Error";
+  const isYYErrorClass = isInValidYY && "outline-Error hover:outline-Error";
 
   return (
     <div className="flex flex-col w-full">
@@ -43,9 +43,6 @@ const DateInputField: FC<DateInputFieldProp> = ({
             autoComplete="off"
             {...DateInputField}
           />
-          <div>
-            {(isInValidMM || isInValidYY) && <ErrorMessage text={errorText} />}
-          </div>
         </div>
         <input
           className={customInputClass + " " + isYYErrorClass}
@@ -56,6 +53,9 @@ const DateInputField: FC<DateInputFieldProp> = ({
           autoComplete="off"
           {...DateInputField}
         />
+      </div>
+      <div className="">
+        {(isInValidMM || isInValidYY) && <ErrorMessage text={errorText} />}
       </div>
     </div>
   );
