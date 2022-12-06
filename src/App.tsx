@@ -48,14 +48,38 @@ const App = () => {
     return "";
   };
 
-  const validateMY = (currentValues: CCForm) => {
+  const validateM = (currentValues: CCForm) => {
     const MM = currentValues["MM"].value;
     const YY = currentValues["YY"].value;
-    if (MM.trim().toLowerCase() === "") {
+
+    const isMonthEmpty = MM.trim().toLowerCase() === "";
+    const isYearEmpty = YY.trim().toLowerCase() === "";
+
+    if (isMonthEmpty && isYearEmpty) {
+      return "MM and YY Can’t be blank";
+    }
+
+    if (isMonthEmpty) {
       return "MM Can’t be blank";
-    } else if (YY.trim().toLowerCase() === "") {
+    }
+    return "";
+  };
+
+  const validateY = (currentValues: CCForm) => {
+    const MM = currentValues["MM"].value;
+    const YY = currentValues["YY"].value;
+
+    const isMonthEmpty = MM.trim().toLowerCase() === "";
+    const isYearEmpty = YY.trim().toLowerCase() === "";
+
+    if (isMonthEmpty && isYearEmpty) {
+      return "MM and YY Can’t be blank";
+    }
+
+    if (isYearEmpty) {
       return "YY Can’t be blank";
     }
+
     return "";
   };
 
@@ -81,12 +105,12 @@ const App = () => {
     MM: {
       value: "",
       error: "",
-      validator: validateMY,
+      validator: validateM,
     },
     YY: {
       value: "",
       error: "",
-      validator: validateMY,
+      validator: validateY,
     },
     CVC: {
       value: "",
@@ -110,14 +134,22 @@ const App = () => {
     setisLoading(true);
     setisSuccessful(false);
 
+    const newValues = Object.keys(values).reduce((accumulator, key) => {
+      return {
+        ...accumulator,
+        [key]: {
+          value: "",
+          error: "",
+        },
+      };
+    }, {});
+
+    setValues(newValues as CCForm);
+
     setTimeout(() => {
       setisLoading(false);
       setisSuccessful(true);
     }, 2000);
-    const newValues = Object.keys(values).reduce((accumulator, key) => {
-      return { ...accumulator, [key]: values[key as keyof CCForm].value };
-    }, {});
-    setValues(newValues as CCForm);
   };
 
   const onChangeEventHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -132,9 +164,6 @@ const App = () => {
       },
     }));
   };
-
-  //Questions
-  //1. currentValues?
 
   const onBlurHandler = (e: FocusEvent<HTMLInputElement>) => {
     setValues((currentValues) => ({
@@ -215,7 +244,11 @@ const App = () => {
                 onBlur={onBlurHandler}
                 isInValidMM={values["MM"].error !== ""}
                 isInValidYY={values["YY"].error !== ""}
-                errorText={"MM or YY can not be empty"}
+                errorText={
+                  values["MM"].error !== ""
+                    ? values["MM"].error
+                    : values["YY"].error
+                }
               />
               <InputField
                 label={"CVC"}
