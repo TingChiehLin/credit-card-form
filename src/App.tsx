@@ -6,6 +6,7 @@ import Button from "./components/Button";
 import DateInputField from "./components/DateInputField";
 
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import SuccessImg from "./assets/success.png";
 
 type fieldValidator = (currentValues: CCForm) => string;
 
@@ -140,6 +141,7 @@ const App = () => {
         [key]: {
           value: "",
           error: "",
+          validator: values[key as keyof CCForm].validator,
         },
       };
     }, {});
@@ -202,10 +204,22 @@ const App = () => {
           />
         </div>
       )}
-      <div className="flex justify-center items-center absolute top-1/2 -translate-y-1/2 left-[12%] z-10">
+      <div className="flex justify-center items-center gap-28 absolute top-1/2 -translate-y-1/2 left-[12%] z-10">
         <img className="" alt="bg-card" src={ImageCard} />
         {isSuccessful ? (
-          <div>Succeffful</div>
+          <div className="flex flex-col items-center gap-6">
+            <img src={SuccessImg} alt={"successImg"} width={"96rem"} />
+            <h1 className="text-[28px] font-bold">THANK YOU!</h1>
+            <div className="text-[18px] font-semibold text-[#8F8694]">
+              We’ve added your card details
+            </div>
+
+            <Button
+              text="Continue"
+              onClick={() => setisSuccessful(false)}
+              className="w-full mt-4 h-[53px] bg-DeepViolet text-white font-bold rounded-md"
+            />
+          </div>
         ) : (
           <form
             onSubmit={submitFormHandler}
