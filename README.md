@@ -12,6 +12,8 @@
 
 • React Icon
 
+• Jest
+
 # Front-end Style Guide
 
 ## Colors
@@ -38,6 +40,10 @@ Error: "#FF5050",
 • [Disable form validation in browser](https://stackoverflow.com/questions/9399528/disable-form-validation-in-browser)
 
 • [AutoComplete](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete)
+
+• queryByTestId - Return null, if it does not exist
+
+• getByTestId - Throw errors, if it does not exist
 
 ### Demo
 

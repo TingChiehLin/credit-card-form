@@ -42,6 +42,7 @@ const DateInputField: FC<DateInputFieldProp> = ({
             placeholder="MM"
             autoComplete="off"
             {...DateInputField}
+            data-testid={"MM"}
           />
         </div>
         <input
@@ -52,6 +53,7 @@ const DateInputField: FC<DateInputFieldProp> = ({
           placeholder="YY"
           autoComplete="off"
           {...DateInputField}
+          data-testid={"YY"}
         />
       </div>
       <div className="">

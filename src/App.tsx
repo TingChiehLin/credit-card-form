@@ -237,6 +237,7 @@ const App = () => {
               onBlur={onBlurHandler}
               isInValid={values["cardholderName"].error !== ""}
               errorText={values["cardholderName"].error}
+              testId={"cardholderName"}
             />
             <InputField
               label={"Card Number"}
@@ -248,6 +249,7 @@ const App = () => {
               onBlur={onBlurHandler}
               isInValid={values["cardNumber"].error !== ""}
               errorText={values["cardNumber"].error}
+              testId={"cardNumber"}
             />
             <div className="flex items-start gap-6">
               <DateInputField
@@ -274,6 +276,7 @@ const App = () => {
                 onBlur={onBlurHandler}
                 isInValid={values["CVC"].error !== ""}
                 errorText={values["CVC"].error}
+                testId={"CVC"}
               />
             </div>
             <Button

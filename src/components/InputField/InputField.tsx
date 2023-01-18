@@ -12,12 +12,14 @@ export interface InputTypeProp {
   errorText: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onBlur: (e: FocusEvent<HTMLInputElement>) => void;
+  testId: string;
 }
 
 export const InputField: FC<InputTypeProp> = ({
   label,
   isInValid,
   errorText,
+  testId,
   ...inputProps
 }) => {
   const customInputClass =
@@ -33,8 +35,11 @@ export const InputField: FC<InputTypeProp> = ({
           {...inputProps}
           autoComplete="off"
           className={customInputClass + " " + isErrorClass}
+          data-testid={`${testId}-input`}
         />
-        {isInValid && <ErrorMessage text={errorText} />}
+        {isInValid && (
+          <ErrorMessage testId={`${testId}-error`} text={errorText} />
+        )}
       </div>
     </div>
   );
